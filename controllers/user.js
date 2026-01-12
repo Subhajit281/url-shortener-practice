@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const AppError = require("../utils/AppError");
 const {v4 : uuidv4 } = require('uuid');
-const {setUser} = require("../utils/auth");
+// const {setUser} = require("../utils/auth");
 const bcrypt = require("bcrypt");
 
 async function handleUserSignUp(req,res,next){
@@ -26,23 +26,23 @@ async function handleUserSignUp(req,res,next){
     }
 }
 
-async function handleUserLogin(req,res,next){
-    const {email,password} = req.body;
+// async function handleUserLogin(req,res,next){
+//     const {email,password} = req.body;
 
-    const user = await User.findOne({email});
-    if(!user) return next(new AppError("Please try login with Valid Username and Password",401));
+//     const user = await User.findOne({email});
+//     if(!user) return next(new AppError("Please try login with Valid Username and Password",401));
 
-    const isMatched = await bcrypt.compare(password,user.password);
-    if(!isMatched) return next(new AppError("Invalid email or password",401));
+//     const isMatched = await bcrypt.compare(password,user.password);
+//     if(!isMatched) return next(new AppError("Invalid email or password",401));
 
-    const sessionId = uuidv4();
-    setUser(user,sessionId);
+//     const sessionId = uuidv4();
+//     setUser(user,sessionId);
     
-    res.cookie("uid",sessionId);
-    return res.json({ message: "Login successful" });
+//     res.cookie("uid",sessionId);
+//     return res.json({ message: "Login successful" });
 
-}
+// }
 module.exports = {
     handleUserSignUp,
-    handleUserLogin,
+   
 };
